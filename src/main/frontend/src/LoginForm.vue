@@ -19,7 +19,7 @@
         methods: {
             enter() {
                 this.$emit("login", this.user);
-            }
+            },
         },
         computed: {
             labelOfTheButton() {
