@@ -21,18 +21,11 @@
         props: ['username'],
         data() {
             return {
-                meetings: []
-            };
+                meetings: [],
+             };
         },
         mounted() {
-        	this.$http.get('meetings').then(response => {
-
-        	    // get body data
-        	    this.meetings = response.body;
-
-        	  }, response => {
-        	    // error callback
-        	  });
+        	this.loadMeetings();
         },
         
         methods: {
@@ -47,6 +40,13 @@
             },
             deleteMeeting(meeting) {
                 this.meetings.splice(this.meetings.indexOf(meeting), 1);
+            },
+            loadMeetings() {
+            	this.$http.get('meetings').then(response => {
+            	    this.meetings = response.body;
+				}, response => {
+            	    // error callback
+           		});
             },
         }
     }

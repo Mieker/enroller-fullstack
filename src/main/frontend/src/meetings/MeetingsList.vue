@@ -36,6 +36,6 @@
 
 <script>
     export default {
-        props: ['meetings', 'username']        
+        props: ['meetings', 'username'],
     }
 </script>
