@@ -5,7 +5,7 @@
 	<span v-if="meetings.length == 0"> Brak zaplanowanych spotkań. </span>
 	<h3 v-else>Zaplanowane zajęcia ({{ meetings.length }})</h3>
 
-	<meetings-list :meetings="meetings" :username="username"
+	<meetings-list :meetings="meetings" :username="username" :participant="participant"
 		@attend="addMeetingParticipant($event)"
 		@unattend="removeMeetingParticipant($event)"
 		@delete="deleteMeeting($event)"></meetings-list>
@@ -22,7 +22,7 @@
         data() {
             return {
                 meetings: [],
-                participant: {},
+                participant: { "login": this.username },
              };
         },
         mounted() {
@@ -35,10 +35,11 @@
             },
             addMeetingParticipant(meeting) {
             	var url = "meetings/" + meeting.id + "/participants";
-            	this.participant.login = this.username;
+            	/* this.participant.login = this.username; */
             	 this.$http.post(url, this.participant)
                  .then(response => {
-                	meeting.participants.push(this.participant);
+                	meeting.participants.push(response.body);
+                	loadMeetings();
                      // udało się
                  })
                  .catch(response => {
