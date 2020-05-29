@@ -39,7 +39,7 @@
             	 this.$http.post(url, this.participant)
                  .then(response => {
                 	meeting.participants.push(response.body);
-                	loadMeetings();
+                	loadMeetings(); //check later if you can remove this line without errors
                      // udało się
                  })
                  .catch(response => {
@@ -47,7 +47,15 @@
                  });
             },
             removeMeetingParticipant(meeting) {
-                meeting.participants.splice(meeting.participants.indexOf(this.username), 1);
+            	var url = "meetings/" + meeting.id + "/participants/" + this.username;
+                this.$http.delete(url)
+                .then(response => {
+                	meeting.participants.splice(meeting.participants.indexOf(this.username), 1);
+                	// udalo sie
+                })
+                .catch(response => {
+                	// nie udalo sie
+                });
             },
             deleteMeeting(meeting) {
             	var url = "meetings/" + meeting.id;
