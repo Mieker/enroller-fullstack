@@ -36,7 +36,7 @@
 
 <script>
     export default {
-        props: ['meetings', 'username', 'participant'],
+        props: ['meetings', 'username'],
         methods: {
         	contains(meeting) {
         		if (meeting.participants.filter(e => e.login === this.username).length >0) {
