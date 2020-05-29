@@ -33,7 +33,15 @@
                 this.meetings.push(meeting);
             },
             addMeetingParticipant(meeting) {
+            	var url = "meetings/" + meeting.id + "/participants";
+            	 this.$http.post(url, this.user)
+                 .then(response => {
                 meeting.participants.push(this.username);
+                     // udało się
+                 })
+                 .catch(response => {
+                     // nie udało sie     
+                 });
             },
             removeMeetingParticipant(meeting) {
                 meeting.participants.splice(meeting.participants.indexOf(this.username), 1);
