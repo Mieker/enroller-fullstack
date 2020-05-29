@@ -20,7 +20,7 @@
         </ul>
       </td>
       <td style="text-align: right; min-width: 400px">
-        <button v-if="!contains(meeting)" class="button-outline"
+        <button v-if="contains(meeting)" class="button-outline"
                 @click="$emit('attend', meeting)">
           Zapisz się
         </button>
@@ -39,10 +39,10 @@
         props: ['meetings', 'username'],
         methods: {
         	contains(meeting) {
-        		if (meeting.participants.filter(e => e.login === this.username).length >0) {
-        			return true;
+        		if (meeting.participants.filter(e => e.login === this.username).length > 0) {
+        			return false;
         		}
-        		return false;
+        		return true;
         	}
         }
     }

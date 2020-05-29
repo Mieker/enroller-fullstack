@@ -5,8 +5,8 @@
 	<span v-if="meetings.length == 0"> Brak zaplanowanych spotkań. </span>
 	<h3 v-else>Zaplanowane zajęcia ({{ meetings.length }})</h3>
 
-	<meetings-list :meetings="meetings" :username="username" :participant="participant"
-		@attend="addMeetingParticipant($event)"
+	<meetings-list :meetings="meetings" :username="username"
+		:participant="participant" @attend="addMeetingParticipant($event)"
 		@unattend="removeMeetingParticipant($event)"
 		@delete="deleteMeeting($event)"></meetings-list>
 </div>
@@ -35,11 +35,9 @@
             },
             addMeetingParticipant(meeting) {
             	var url = "meetings/" + meeting.id + "/participants";
-            	/* this.participant.login = this.username; */
-            	 this.$http.post(url, this.participant)
+            	this.$http.post(url, this.participant)
                  .then(response => {
                 	meeting.participants.push(response.body);
-                	loadMeetings(); //check later if you can remove this line without errors
                      // udało się
                  })
                  .catch(response => {
@@ -47,13 +45,10 @@
                  });
             },
             removeMeetingParticipant(meeting) {
-            	
             	var pos = meeting.participants.map(function(e) { return e.login; }).indexOf(this.username);
-            	
             	var url = "meetings/" + meeting.id + "/participants/" + this.username;
                 this.$http.delete(url)
                 .then(response => {
-                	
                 	meeting.participants.splice(pos, 1);
                 	// udalo sie
                 })
