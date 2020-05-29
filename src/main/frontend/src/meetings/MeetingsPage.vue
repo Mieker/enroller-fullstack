@@ -47,11 +47,14 @@
                  });
             },
             removeMeetingParticipant(meeting) {
+            	
+            	var pos = meeting.participants.map(function(e) { return e.login; }).indexOf(this.username);
+            	
             	var url = "meetings/" + meeting.id + "/participants/" + this.username;
                 this.$http.delete(url)
                 .then(response => {
-                	alert(meeting.participants.indexOf(response));
-                	meeting.participants.splice(meeting.participants.indexOf(response), 1);
+                	
+                	meeting.participants.splice(pos, 1);
                 	// udalo sie
                 })
                 .catch(response => {
