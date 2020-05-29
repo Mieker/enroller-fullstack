@@ -50,7 +50,8 @@
             	var url = "meetings/" + meeting.id + "/participants/" + this.username;
                 this.$http.delete(url)
                 .then(response => {
-                	meeting.participants.splice(meeting.participants.indexOf(this.username), 1);
+                	alert(meeting.participants.indexOf(response));
+                	meeting.participants.splice(meeting.participants.indexOf(response), 1);
                 	// udalo sie
                 })
                 .catch(response => {
