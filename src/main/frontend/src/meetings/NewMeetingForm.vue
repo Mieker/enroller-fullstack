@@ -23,13 +23,16 @@
             };
         },
         methods: {
-            addNewMeeting() {
+        	addNewMeeting() {
                 this.error = false;
                 if (this.newMeeting.title) {
-                    this.$emit('added', this.newMeeting);
                      this.$http.post('meetings', this.newMeeting)
                     .then(response => {
                         // udało się
+					this.newMeeting.id = response.body.id;
+                    this.$emit('added', this.newMeeting);
+					this.newMeeting = {participants: []};
+                	this.adding = false;
                     })
                     .catch(response => {
                         // nie udało sie     
@@ -37,8 +40,6 @@
                 } else {
                     this.error = true;
                 }
-				this.newMeeting = {participants: []};
-                this.adding = false;
             },
         }
     }
