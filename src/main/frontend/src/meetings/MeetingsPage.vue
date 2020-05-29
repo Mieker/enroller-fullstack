@@ -38,7 +38,7 @@
             	this.participant.login = this.username;
             	 this.$http.post(url, this.participant)
                  .then(response => {
-                meeting.participants.push(this.username);
+                	meeting.participants.push(this.participant);
                      // udało się
                  })
                  .catch(response => {
