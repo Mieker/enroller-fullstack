@@ -22,6 +22,7 @@
         data() {
             return {
                 meetings: [],
+                participant: {},
              };
         },
         mounted() {
@@ -34,7 +35,8 @@
             },
             addMeetingParticipant(meeting) {
             	var url = "meetings/" + meeting.id + "/participants";
-            	 this.$http.post(url, this.user)
+            	this.participant.login = this.username;
+            	 this.$http.post(url, this.participant)
                  .then(response => {
                 meeting.participants.push(this.username);
                      // udało się

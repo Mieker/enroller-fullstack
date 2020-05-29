@@ -8,7 +8,7 @@
       <h2>Witaj {{ authenticatedUsername }}!
         <a @click="logout()" class="float-right  button-outline button">Wyloguj</a>
       </h2>
-      <meetings-page :username="authenticatedUsername"></meetings-page>
+      <meetings-page :username="authenticatedUsername" :user="user"></meetings-page>
     </div>
     <div v-else>
       <button @click="registering = false" :class="registering ? 'button-outline' : ''">Loguję się</button>
@@ -32,7 +32,8 @@
                 authenticatedUsername: "",
                 registering: false,
                 message: '',
-                isError: false
+                isError: false,
+                user: {},
             };
         },
         methods: {
@@ -51,6 +52,7 @@
                     .then(response => {
                         const token = response.body.token;
                         this.storeAuth(user.login, token);
+                        this.user = user;
                     })
                     .catch(() => this.failure('Logowanie nieudane.'));
             },
